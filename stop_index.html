@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="style.css">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snack Detector</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div>Teachable Machine Image Model</div>
-    <button type="button" onclick="init()">Start</button>
-    <button type="button" onclick="predict()">predict</button>
+    <div id="title">Snack Product Detector</div>
+    <div class="button-container">
+        <button id="init_btn" type="button" onclick="init()">Start</button>
+        <button id="predict_btn" type="button" onclick="predict()">predict</button>
+    </div>
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <div class="file-upload">
         <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
@@ -101,9 +102,10 @@
             // append elements to the DOM
             // document.getElementById("webcam-container").appendChild(webcam.canvas);
             labelContainer = document.getElementById("label-container");
-            for (let i = 0; i < maxPredictions; i++) { // and class labels
-                labelContainer.appendChild(document.createElement("div"));
-            }
+             // and class labels
+            const label = document.createElement("div");
+            label.setAttribute('id', 'label');
+            labelContainer.appendChild(label);
         }
 
         // async function loop() {
@@ -131,7 +133,7 @@
             //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
             const classPrediction =
                 max_name + ": " + max.toFixed(2)*100 + "%";
-            labelContainer.childNodes[1].innerHTML = classPrediction;
+            labelContainer.childNodes[0].innerHTML = classPrediction;
         }
     </script>
 </body>
