@@ -46,9 +46,9 @@
         // Load the image model and setup the webcam
         async function init() {
             if (document.getElementById("model").checked) {
-                URL = URL_snack;
-            } else {
                 URL = URL_drink;
+            } else {
+                URL = URL_snack;
             }
             const modelURL = URL + "model.json";
             const metadataURL = URL + "metadata.json";
