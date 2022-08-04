@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Model</title>
+    <title>Snack Detector</title>
 </head>
 
 <body>
@@ -74,7 +74,8 @@
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
         // the link to your model provided by Teachable Machine export panel
-        const URL = "https://teachablemachine.withgoogle.com/models/eE1nY4X9N/";
+        const URL = "";
+        // const URL = "https://teachablemachine.withgoogle.com/models/eE1nY4X9N/";
 
         let model, webcam, labelContainer, maxPredictions;
 
@@ -116,11 +117,21 @@
             // predict can take in an image, video or canvas html element
             var image = document.getElementById("snack-image")
             const prediction = await model.predict(image, false);
+
+		    const max = prediction[0].probability;
+            const max_name = prediction[0].className;
+
             for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                labelContainer.childNodes[i].innerHTML = classPrediction;
+                if(max < prediction[i].probability){
+				max = prediction[i].probability;
+                max_name = prediction[i].className;
+			    }
             }
+            // const classPrediction =
+            //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            const classPrediction =
+                max_name + ": " + max.toFixed(2)*100 + "%";
+            labelContainer.childNodes[0].innerHTML = classPrediction;
         }
     </script>
 </body>
