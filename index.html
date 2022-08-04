@@ -8,11 +8,25 @@
     <style>
         #webcam-container {margin: 0 auto;}
         #title {text-align: center;}
+        input#model { display: inline; }
     </style>
 </head>
 
 <body>
-    <div id="title">Snack Product Detector</div>
+    <div id="title">Product Detector</div>
+    <h3 class="pb-2 d-flex justify-content-center"></h3>
+    <section class="d-flex justify-content-center">
+        <!-- <p class="d-flex align-items-center pr-3">과자</p> -->
+        <div>
+            <input type="checkbox" id="model">
+            <label for="model">
+                <span class="knob">
+                    음료 인식하기 (기본 과자)
+                </span>
+            </label>
+        </div>
+        <p class="d-flex align-items-center pl-3"></p>
+    </section>
     <button type="button" onclick="init()">Start</button>
     <div id="webcam-container"></div>
     <div id="label-container"></div>
@@ -23,12 +37,19 @@
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
     
         // the link to your model provided by Teachable Machine export panel
-        const URL = "";
-    
+        let URL;
+        const URL_snack = 'snack_model/';
+        const URL_drink = 'drink_model/';
+
         let model, webcam, labelContainer, maxPredictions;
     
         // Load the image model and setup the webcam
         async function init() {
+            if (document.getElementById("model").checked) {
+                URL = URL_snack;
+            } else {
+                URL = URL_drink;
+            }
             const modelURL = URL + "model.json";
             const metadataURL = URL + "metadata.json";
     
